@@ -1,0 +1,414 @@
+  [1m[36mSQL (1.0ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[36mSQL (1.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35mSQL (0.2ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (12.9ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "type" varchar(255)) [0m
+  [1m[35mSQL (0.3ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (1.6ms)[0m  [1mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "author_id" integer, "category_id" integer, "inflamatory" boolean) [0m
+  [1m[35mSQL (0.2ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (1.7ms)[0m  [1mCREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL) [0m
+  [1m[35mSQL (0.3ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (1.7ms)[0m  [1mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "post_id" integer) [0m
+  [1m[35mSQL (0.3ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (1.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35mSQL (0.1ms)[0m  PRAGMA index_list("schema_migrations")
+  [1m[36mSQL (1.6ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mSQL (0.3ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35mSQL (1.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('0')
+  [1m[36mSQL (0.5ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.3ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mPost Load (0.3ms)[0m  SELECT "posts".* FROM "posts" WHERE ("posts".author_id = 1)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mCategory Load (0.3ms)[0m  SELECT "categories".* FROM "categories" INNER JOIN posts ON ( categories.id = posts.category_id ) WHERE (posts.author_id = 2 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mPost Load (0.3ms)[0m  SELECT "posts".* FROM "posts" INNER JOIN categories ON ( posts.category_id = categories.id ) INNER JOIN posts posts_2 ON ( categories.id = posts_2.category_id ) WHERE (posts_2.author_id = 3 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAuthor Load (0.3ms)[0m  SELECT DISTINCT "users".* FROM "users" INNER JOIN posts ON ( users.id = posts.author_id AND "users"."type" = 'Author') INNER JOIN categories ON ( posts.category_id = categories.id ) INNER JOIN posts posts_2 ON ( categories.id = posts_2.category_id ) WHERE "users"."type" = 'Author' AND (posts_2.author_id = 4 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT DISTINCT "users".* FROM "users" INNER JOIN comments ON ( users.id = comments.user_id ) INNER JOIN posts ON ( comments.post_id = posts.id ) WHERE (posts.author_id = 5 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (6, 11, NULL)
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE ("posts".author_id = 6)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (7, 13, NULL)[0m
+  [1m[35mCategory Load (0.3ms)[0m  SELECT "categories".* FROM "categories" INNER JOIN posts ON ( categories.id = posts.category_id ) WHERE (posts.author_id = 7 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (8, 15, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (9, 15, NULL)
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE ("posts".author_id = 8)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.5ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (10, 17, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (11, 17, NULL)[0m
+  [1m[35mCategory Load (0.3ms)[0m  SELECT "categories".* FROM "categories" INNER JOIN posts ON ( categories.id = posts.category_id ) WHERE (posts.author_id = 10 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (12, 19, NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (13, 19, NULL)
+  [1m[36mPost Load (0.4ms)[0m  [1mSELECT "posts".* FROM "posts" INNER JOIN categories ON ( posts.category_id = categories.id ) INNER JOIN posts posts_2 ON ( categories.id = posts_2.category_id ) WHERE (posts_2.author_id = 12 )[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (14, 21, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (15, 21, NULL)[0m
+  [1m[35mAuthor Load (0.4ms)[0m  SELECT DISTINCT "users".* FROM "users" INNER JOIN posts ON ( users.id = posts.author_id AND "users"."type" = 'Author') INNER JOIN categories ON ( posts.category_id = categories.id ) INNER JOIN posts posts_2 ON ( categories.id = posts_2.category_id ) WHERE "users"."type" = 'Author' AND (posts_2.author_id = 14 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (16, 23, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (17, 23, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (17, 25, NULL)
+  [1m[36mPost Load (0.5ms)[0m  [1mSELECT "posts".* FROM "posts" INNER JOIN categories ON ( posts.category_id = categories.id ) INNER JOIN posts posts_2 ON ( categories.id = posts_2.category_id ) WHERE (posts_2.author_id = 16 )[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (18, 26, NULL)[0m
+  [1m[35mAREL (0.5ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (19, 26, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (19, 28, NULL)[0m
+  [1m[35mPost Load (0.6ms)[0m  SELECT DISTINCT "posts".* FROM "posts" INNER JOIN users ON ( posts.author_id = users.id ) INNER JOIN posts posts_2 ON ( users.id = posts_2.author_id AND "users"."type" = 'Author') INNER JOIN categories ON ( posts_2.category_id = categories.id ) INNER JOIN posts posts_3 ON ( categories.id = posts_3.category_id ) WHERE (posts_3.author_id = 18 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (20, 29, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (21, 29, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (21, 30, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (22, 31, NULL)
+  [1m[36mAuthor Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 20 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 21 LIMIT 1
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE ("posts".author_id = 20)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (23, 32, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (24, 32, NULL)[0m
+  [1m[35mAREL (0.5ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (24, 33, NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (25, 34, NULL)[0m
+  [1m[35mAuthor Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 23 LIMIT 1
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 24 LIMIT 1[0m
+  [1m[35mCategory Load (0.2ms)[0m  SELECT "categories".* FROM "categories" INNER JOIN posts ON ( categories.id = posts.category_id ) WHERE (posts.author_id = 23 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (26, 35, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (27, 35, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (27, 36, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (28, 37, NULL)
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 26 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 27 LIMIT 1
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE ("posts".author_id = 27)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (29, 38, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (30, 38, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (30, 39, NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (31, 40, NULL)[0m
+  [1m[35mAuthor Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 29 LIMIT 1
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 30 LIMIT 1[0m
+  [1m[35mCategory Load (0.2ms)[0m  SELECT "categories".* FROM "categories" INNER JOIN posts ON ( categories.id = posts.category_id ) WHERE (posts.author_id = 30 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (32, 41, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (33, 41, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (33, 42, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (34, 43, NULL)
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 32 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 33 LIMIT 1
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES (NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("user_id", "post_id") VALUES (35, 34)
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE ("comments".user_id = 35)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (36, 44, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (37, 44, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (37, 45, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (38, 46, NULL)[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 36 LIMIT 1
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 37 LIMIT 1[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES (NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "comments" ("user_id", "post_id") VALUES (39, 38)[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT DISTINCT "users".* FROM "users" INNER JOIN comments ON ( users.id = comments.user_id ) INNER JOIN posts ON ( comments.post_id = posts.id ) WHERE (posts.author_id = 36 )
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (40, 47, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (41, 47, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (41, 48, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (42, 49, NULL)
+  [1m[36mAuthor Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 40 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 41 LIMIT 1
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES (NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "comments" ("user_id", "post_id") VALUES (43, 42)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT DISTINCT "users".* FROM "users" INNER JOIN comments ON ( users.id = comments.user_id ) INNER JOIN posts ON ( comments.post_id = posts.id ) WHERE (posts.author_id = 41 )[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (44, 50, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (45, 50, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (45, 51, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (46, 52, NULL)[0m
+  [1m[35mAuthor Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 44 LIMIT 1
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 45 LIMIT 1[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES (NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "comments" ("user_id", "post_id") VALUES (47, 46)[0m
+  [1m[35mPost Load (0.3ms)[0m  SELECT DISTINCT "posts".* FROM "posts" INNER JOIN comments ON ( posts.id = comments.post_id ) WHERE (comments.user_id = 47 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (48, 53, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (49, 53, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (49, 54, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (50, 55, NULL)
+  [1m[36mAuthor Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 48 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 49 LIMIT 1
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES (NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("user_id", "post_id") VALUES (51, 50)
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT DISTINCT "posts".* FROM "posts" INNER JOIN comments ON ( posts.id = comments.post_id ) WHERE "posts"."inflamatory" = 't' AND (comments.user_id = 51 )[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (52, 56, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (53, 56, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (53, 57, NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (54, 58, NULL)[0m
+  [1m[35mAuthor Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 52 LIMIT 1
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 53 LIMIT 1[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES (NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "comments" ("user_id", "post_id") VALUES (55, 54)[0m
+  [1m[35mSQL (0.3ms)[0m  SELECT COUNT(*) FROM "posts" INNER JOIN comments ON ( posts.id = comments.post_id ) WHERE "posts"."inflamatory" = 't' AND (comments.user_id = 55 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (56, 59, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (57, 59, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (57, 60, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (58, 61, NULL)
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 56 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 57 LIMIT 1
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES (NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("user_id", "post_id") VALUES (59, 58)
+  [1m[36mAuthor Load (0.4ms)[0m  [1mSELECT DISTINCT "users".* FROM "users" INNER JOIN posts ON ( users.id = posts.author_id AND "users"."type" = 'Author') INNER JOIN comments ON ( posts.id = comments.post_id ) WHERE "users"."type" = 'Author' AND (comments.user_id = 59 )[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (60, 62, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (61, 62, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (61, 63, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (62, 64, NULL)[0m
+  [1m[35mAuthor Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 60 LIMIT 1
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 61 LIMIT 1[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES (NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "comments" ("user_id", "post_id") VALUES (63, 62)[0m
+  [1m[35mPost Load (0.9ms)[0m  SELECT DISTINCT "posts".* FROM "posts" INNER JOIN users ON ( posts.author_id = users.id ) INNER JOIN posts posts_2 ON ( users.id = posts_2.author_id AND "users"."type" = 'Author') INNER JOIN categories ON ( posts_2.category_id = categories.id ) INNER JOIN posts posts_3 ON ( categories.id = posts_3.category_id ) INNER JOIN users users_2 ON ( posts_3.author_id = users_2.id ) INNER JOIN posts posts_4 ON ( users_2.id = posts_4.author_id AND "users"."type" = 'Author') INNER JOIN comments ON ( posts_4.id = comments.post_id ) WHERE (comments.user_id = 63 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (64, 65, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (65, 65, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (65, 66, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (66, 67, NULL)
+  [1m[36mAuthor Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 64 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 65 LIMIT 1
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES (NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("user_id", "post_id") VALUES (67, 66)
+  [1m[36mCategory Load (0.8ms)[0m  [1mSELECT DISTINCT "categories".* FROM "categories" INNER JOIN posts ON ( categories.id = posts.category_id ) INNER JOIN users ON ( posts.author_id = users.id ) INNER JOIN posts posts_2 ON ( users.id = posts_2.author_id AND "users"."type" = 'Author') INNER JOIN categories categories_2 ON ( posts_2.category_id = categories_2.id ) INNER JOIN posts posts_3 ON ( categories_2.id = posts_3.category_id ) INNER JOIN users users_2 ON ( posts_3.author_id = users_2.id ) INNER JOIN posts posts_4 ON ( users_2.id = posts_4.author_id AND "users"."type" = 'Author') INNER JOIN comments ON ( posts_4.id = comments.post_id ) WHERE (comments.user_id = 67 )[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (68, 68, NULL)
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (69, 68, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (69, 69, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (70, 70, NULL)[0m
+  [1m[35mAuthor Load (0.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 68 LIMIT 1
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 69 LIMIT 1[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES (NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "comments" ("user_id", "post_id") VALUES (71, 70)[0m
+  [1m[35mAREL (0.3ms)[0m  UPDATE "posts" SET "inflamatory" = 't' WHERE "posts"."id" = 70
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (72, 71, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (73, 71, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (73, 72, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (74, 73, NULL)
+  [1m[36mAuthor Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 72 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 73 LIMIT 1
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES (NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("user_id", "post_id") VALUES (75, 74)
+  [1m[36mAREL (0.3ms)[0m  [1mUPDATE "posts" SET "inflamatory" = 't' WHERE "posts"."id" = 74[0m
+  [1m[35mPost Load (0.3ms)[0m  SELECT DISTINCT "posts".* FROM "posts" INNER JOIN comments ON ( posts.id = comments.post_id ) WHERE "posts"."inflamatory" = 't' AND (comments.user_id = 75 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (76, 74, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (77, 74, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (77, 75, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (78, 76, NULL)
+  [1m[36mAuthor Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 76 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 77 LIMIT 1
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES (NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("user_id", "post_id") VALUES (79, 78)
+  [1m[36mAREL (0.3ms)[0m  [1mUPDATE "posts" SET "inflamatory" = 't' WHERE "posts"."id" = 78[0m
+  [1m[35mPost Load (77.6ms)[0m  SELECT DISTINCT "posts".* FROM "posts" INNER JOIN users ON ( posts.author_id = users.id ) INNER JOIN posts posts_2 ON ( users.id = posts_2.author_id AND "users"."type" = 'Author') INNER JOIN categories ON ( posts_2.category_id = categories.id ) INNER JOIN posts posts_3 ON ( categories.id = posts_3.category_id ) INNER JOIN users users_2 ON ( posts_3.author_id = users_2.id ) INNER JOIN posts posts_4 ON ( users_2.id = posts_4.author_id AND "users"."type" = 'Author') INNER JOIN comments ON ( posts_4.id = comments.post_id ) WHERE "posts"."inflamatory" = 't' AND (comments.user_id = 79 )
+  [1m[36mAREL (0.5ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (80, 77, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (81, 77, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (81, 78, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (82, 79, NULL)
+  [1m[36mAuthor Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 80 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 81 LIMIT 1
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES (NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("user_id", "post_id") VALUES (83, 82)
+  [1m[36mAREL (0.3ms)[0m  [1mUPDATE "posts" SET "inflamatory" = 't' WHERE "posts"."id" = 82[0m
+  [1m[35mPost Load (0.4ms)[0m  SELECT DISTINCT "posts".* FROM "posts" INNER JOIN comments ON ( posts.id = comments.post_id ) WHERE "posts"."inflamatory" = 't' AND (comments.user_id = 83 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (84, 80, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (85, 80, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (85, 81, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (86, 82, NULL)
+  [1m[36mAuthor Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 84 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 85 LIMIT 1
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES (NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "comments" ("user_id", "post_id") VALUES (87, 86)
+  [1m[36mAREL (0.3ms)[0m  [1mUPDATE "posts" SET "inflamatory" = 't' WHERE "posts"."id" = 86[0m
+  [1m[35mPost Load (0.8ms)[0m  SELECT DISTINCT "posts".* FROM "posts" INNER JOIN users ON ( posts.author_id = users.id ) INNER JOIN posts posts_2 ON ( users.id = posts_2.author_id AND "users"."type" = 'Author') INNER JOIN categories ON ( posts_2.category_id = categories.id ) INNER JOIN posts posts_3 ON ( categories.id = posts_3.category_id ) INNER JOIN users users_2 ON ( posts_3.author_id = users_2.id ) INNER JOIN posts posts_4 ON ( users_2.id = posts_4.author_id AND "users"."type" = 'Author') INNER JOIN comments ON ( posts_4.id = comments.post_id ) WHERE "posts"."inflamatory" = 't' AND (comments.user_id = 87 )
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (88, 83, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (89, 83, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (89, 84, NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (90, 85, NULL)
+  [1m[36mAuthor Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 88 LIMIT 1[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 89 LIMIT 1
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES (NULL)[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("user_id", "post_id") VALUES (91, 90)
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 90 LIMIT 1[0m
+  [1m[35mAuthor Load (0.3ms)[0m  SELECT "users".* FROM "users" INNER JOIN "posts" ON "users".id = "posts".author_id WHERE "users"."type" = 'Author' AND (("posts".id = 90)) LIMIT 1
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 89 LIMIT 1[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "categories" VALUES(NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "categories" VALUES(NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES ('Author')
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "users" ("type") VALUES ('Author')[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (92, 86, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (93, 86, NULL)[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (93, 87, NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "posts" ("author_id", "category_id", "inflamatory") VALUES (94, 88, NULL)[0m
+  [1m[35mAuthor Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 92 LIMIT 1
+  [1m[36mAuthor Load (0.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."type" = 'Author' AND "users"."id" = 93 LIMIT 1[0m
+  [1m[35mAREL (0.3ms)[0m  INSERT INTO "users" ("type") VALUES (NULL)
+  [1m[36mAREL (0.3ms)[0m  [1mINSERT INTO "comments" ("user_id", "post_id") VALUES (95, 94)[0m
+  [1m[35mCategory Load (0.9ms)[0m  SELECT DISTINCT "categories".* FROM "categories" INNER JOIN posts ON ( categories.id = posts.category_id ) INNER JOIN users ON ( posts.author_id = users.id ) INNER JOIN posts posts_2 ON ( users.id = posts_2.author_id AND "users"."type" = 'Author') INNER JOIN categories categories_2 ON ( posts_2.category_id = categories_2.id ) INNER JOIN posts posts_3 ON ( categories_2.id = posts_3.category_id ) INNER JOIN users users_2 ON ( posts_3.author_id = users_2.id ) INNER JOIN posts posts_4 ON ( users_2.id = posts_4.author_id AND "users"."type" = 'Author') INNER JOIN comments ON ( posts_4.id = comments.post_id ) INNER JOIN users users_3 ON ( comments.user_id = users_3.id ) WHERE (users_3.id = 95 )
+  [1m[36mCategory Load (0.8ms)[0m  [1mSELECT DISTINCT "categories".* FROM "categories" INNER JOIN posts ON ( categories.id = posts.category_id ) INNER JOIN users ON ( posts.author_id = users.id ) INNER JOIN posts posts_2 ON ( users.id = posts_2.author_id AND "users"."type" = 'Author') INNER JOIN categories categories_2 ON ( posts_2.category_id = categories_2.id ) INNER JOIN posts posts_3 ON ( categories_2.id = posts_3.category_id ) INNER JOIN users users_2 ON ( posts_3.author_id = users_2.id ) INNER JOIN posts posts_4 ON ( users_2.id = posts_4.author_id AND "users"."type" = 'Author') INNER JOIN comments ON ( posts_4.id = comments.post_id ) WHERE (comments.user_id = 95 )[0m
